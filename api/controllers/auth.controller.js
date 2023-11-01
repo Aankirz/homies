@@ -32,7 +32,6 @@ export const signin=async (req,res,next)=>{
     if(!validPassword)
     return next(errorHandler(401,'Invalid password'))
     
-    console.log("Valid UP")
 
     const token=jwt.sign({id:validUser._id},process.env.JSONWEBTOKEN);
     const {password:pass,...rest}=validUser._doc;

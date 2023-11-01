@@ -93,7 +93,6 @@ var signin = function signin(req, res, next) {
           return _context2.abrupt("return", next((0, _error.errorHandler)(401, 'Invalid password')));
 
         case 10:
-          console.log("Valid UP");
           token = _jsonwebtoken["default"].sign({
             id: validUser._id
           }, process.env.JSONWEBTOKEN);
@@ -101,20 +100,20 @@ var signin = function signin(req, res, next) {
           res.cookie('access_token', token, {
             httpOnly: true
           }).status(200).json(rest);
-          _context2.next = 19;
+          _context2.next = 18;
           break;
 
-        case 16:
-          _context2.prev = 16;
+        case 15:
+          _context2.prev = 15;
           _context2.t0 = _context2["catch"](1);
           next((0, _error.errorHandler)(550, "Hello ERRORS HERE: ".concat(error.message)));
 
-        case 19:
+        case 18:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[1, 16]]);
+  }, null, null, [[1, 15]]);
 };
 
 exports.signin = signin;
