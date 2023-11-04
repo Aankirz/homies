@@ -106,7 +106,7 @@ var signin = function signin(req, res, next) {
         case 15:
           _context2.prev = 15;
           _context2.t0 = _context2["catch"](1);
-          next((0, _error.errorHandler)(550, "Hello ERRORS HERE: ".concat(error.message)));
+          next((0, _error.errorHandler)(550, "Hello ERRORS HERE: ".concat(_context2.t0.message)));
 
         case 18:
         case "end":

@@ -40,7 +40,7 @@ export const signin=async (req,res,next)=>{
        .json(rest);
 
    }catch(e){
-    next(errorHandler(550,`Hello ERRORS HERE: ${error.message}`));
+    next(errorHandler(550,`Hello ERRORS HERE: ${e.message}`));
    }
 
 }
