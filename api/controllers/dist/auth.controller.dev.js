@@ -133,7 +133,6 @@ var google = function google(req, res, next) {
 
         case 3:
           user = _context3.sent;
-          console.log(user);
 
           if (!user) {
             _context3.next = 11;
@@ -144,10 +143,11 @@ var google = function google(req, res, next) {
             id: user._id
           }, process.env.JSONWEBTOKEN);
           _user$_doc = user._doc, pass = _user$_doc.password, rest = _objectWithoutProperties(_user$_doc, ["password"]);
+          console.log(user._doc, "HELLO 3");
           res.cookie('access_token', token, {
             httpOnly: true
           }).status(200).json(rest);
-          _context3.next = 19;
+          _context3.next = 20;
           break;
 
         case 11:
@@ -163,29 +163,31 @@ var google = function google(req, res, next) {
           return regeneratorRuntime.awrap(newUser.save());
 
         case 16:
+          console.log(newUser, "HELLO 4");
           _token = _jsonwebtoken["default"].sign({
             id: newUser._id
           }, process.env.JSONWEBTOKEN);
           _newUser$_doc = newUser._doc, _pass = _newUser$_doc.password, _rest = _objectWithoutProperties(_newUser$_doc, ["password"]);
           res.cookie('access_token', _token, {
             httpOnly: true
-          }).status(200).json(_rest);
+          }).status(200).json(_rest); // console.log(rest,"HELLO 5")   
 
-        case 19:
-          _context3.next = 24;
+        case 20:
+          _context3.next = 25;
           break;
 
-        case 21:
-          _context3.prev = 21;
+        case 22:
+          _context3.prev = 22;
           _context3.t0 = _context3["catch"](0);
+          // console.log("NO HELLO")
           next(_context3.t0);
 
-        case 24:
+        case 25:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[0, 21]]);
+  }, null, null, [[0, 22]]);
 };
 
 exports.google = google;

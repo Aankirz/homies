@@ -46,11 +46,13 @@ export const signin=async (req,res,next)=>{
 
 export const google=async (req,res,next)=>{
   try{
+    //  console.log(req.body,"Hello1")
      const user = await User.findOne({email:req.body.email})
-     console.log(user)
+    //  console.log(user,"HELLO 2")
      if(user){
         const token = jwt.sign({id:user._id},process.env.JSONWEBTOKEN);
         const {password:pass,...rest} = user._doc;
+        console.log(user._doc,"HELLO 3")
         res.cookie('access_token',token,{httpOnly:true})
            .status(200)
            .json(rest);
@@ -65,14 +67,16 @@ export const google=async (req,res,next)=>{
         })
 
         await newUser.save();
-
+        console.log(newUser,"HELLO 4")
         const token = jwt.sign({id:newUser._id},process.env.JSONWEBTOKEN);
         const {password:pass,...rest} = newUser._doc;
         res.cookie('access_token',token,{httpOnly:true})
            .status(200)
            .json(rest);
+        // console.log(rest,"HELLO 5")   
      }
   }catch(error){
+    // console.log("NO HELLO")
     next(error)
   }
 }
