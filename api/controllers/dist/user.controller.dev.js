@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUser = exports.test = void 0;
+exports.deleteUser = exports.updateUser = exports.test = void 0;
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
@@ -77,3 +77,41 @@ var updateUser = function updateUser(req, res, next) {
 };
 
 exports.updateUser = updateUser;
+
+var deleteUser = function deleteUser(req, res, next) {
+  return regeneratorRuntime.async(function deleteUser$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          if (!(req.user.id !== req.params.id)) {
+            _context2.next = 2;
+            break;
+          }
+
+          return _context2.abrupt("return", next((0, _error.errorHandler)(401, 'You can only delete your own account')));
+
+        case 2:
+          _context2.prev = 2;
+          _context2.next = 5;
+          return regeneratorRuntime.awrap(_userModel["default"].findByIdAndDelete(req.params.id));
+
+        case 5:
+          res.clearCookie('access_token');
+          res.status(200).json('User has been deleted');
+          _context2.next = 12;
+          break;
+
+        case 9:
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](2);
+          next(_context2.t0);
+
+        case 12:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, null, null, [[2, 9]]);
+};
+
+exports.deleteUser = deleteUser;

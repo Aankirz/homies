@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.google = exports.signin = exports.signup = void 0;
+exports.signOut = exports.google = exports.signin = exports.signup = void 0;
 
 var _userModel = _interopRequireDefault(require("../models/user.model.js"));
 
@@ -46,7 +46,7 @@ var signup = function signup(req, res, next) {
         case 9:
           _context.prev = 9;
           _context.t0 = _context["catch"](3);
-          next((0, _error.errorHandler)(550, "Hello ERRORS HERE: ".concat(_context.t0.message)));
+          next((0, _error.errorHandler)(550, "HELLO ERRORS HERE: ".concat(_context.t0.message)));
 
         case 12:
         case "end":
@@ -191,3 +191,26 @@ var google = function google(req, res, next) {
 };
 
 exports.google = google;
+
+var signOut = function signOut(req, res, next) {
+  return regeneratorRuntime.async(function signOut$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          try {
+            res.clearCookie('access_token').status(200).json({
+              message: "Sign out successfully"
+            });
+          } catch (err) {
+            next(err);
+          }
+
+        case 1:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  });
+};
+
+exports.signOut = signOut;

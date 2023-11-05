@@ -15,7 +15,7 @@ export const signup=async (req,res,next)=>{
     await newUser.save(); // save it in the database 
     res.status(201).json(`User created successfully: ${newUser}`)
      }catch(error){
-         next(errorHandler(550,`Hello ERRORS HERE: ${error.message}`));
+         next(errorHandler(550,`HELLO ERRORS HERE: ${error.message}`));
         }
 }
 
@@ -79,4 +79,14 @@ export const google=async (req,res,next)=>{
     // console.log("NO HELLO")
     next(error)
   }
+}
+
+export const signOut = async (req,res,next)=>{
+   try{
+      res.clearCookie('access_token')
+         .status(200)
+         .json({message:"Sign out successfully"})
+   }catch(err){
+      next(err)
+   }
 }

@@ -8,6 +8,8 @@ var _userRoute = _interopRequireDefault(require("./routes/user.route.js"));
 
 var _authRoute = _interopRequireDefault(require("./routes/auth.route.js"));
 
+var _listingRoutes = _interopRequireDefault(require("./routes/listing.routes.js"));
+
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
@@ -30,6 +32,7 @@ app.use(_express["default"].json());
 app.use((0, _cookieParser["default"])());
 app.use('/api/user', _userRoute["default"]);
 app.use('/api/auth', _authRoute["default"]);
+app.use('/api/listing', _listingRoutes["default"]);
 app.use(function (err, req, res, next) {
   var statusCode = err.statusCode || 500;
   var message = err.message || 'Internal Server Error';
