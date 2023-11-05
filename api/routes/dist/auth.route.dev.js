@@ -15,5 +15,6 @@ var router = _express["default"].Router();
 
 router.post('/signup', _authController.signup);
 router.post('/signin', _authController.signin);
+router.post('/google', _authController.google);
 var _default = router;
 exports["default"] = _default;

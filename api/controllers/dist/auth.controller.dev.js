@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.signin = exports.signup = void 0;
+exports.google = exports.signin = exports.signup = void 0;
 
 var _userModel = _interopRequireDefault(require("../models/user.model.js"));
 
@@ -117,3 +117,75 @@ var signin = function signin(req, res, next) {
 };
 
 exports.signin = signin;
+
+var google = function google(req, res, next) {
+  var user, token, _user$_doc, pass, rest, generatePassword, hashedPassword, newUser, _token, _newUser$_doc, _pass, _rest;
+
+  return regeneratorRuntime.async(function google$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return regeneratorRuntime.awrap(_userModel["default"].findOne({
+            email: req.body.email
+          }));
+
+        case 3:
+          user = _context3.sent;
+          console.log(user);
+
+          if (!user) {
+            _context3.next = 11;
+            break;
+          }
+
+          token = _jsonwebtoken["default"].sign({
+            id: user._id
+          }, process.env.JSONWEBTOKEN);
+          _user$_doc = user._doc, pass = _user$_doc.password, rest = _objectWithoutProperties(_user$_doc, ["password"]);
+          res.cookie('access_token', token, {
+            httpOnly: true
+          }).status(200).json(rest);
+          _context3.next = 19;
+          break;
+
+        case 11:
+          generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+          hashedPassword = _bcryptjs["default"].hashSync(generatePassword, 10);
+          newUser = new _userModel["default"]({
+            username: req.body.name.split(' ').join('').toLowerCase(),
+            email: req.body.email,
+            password: hashedPassword,
+            avatar: req.body.photo
+          });
+          _context3.next = 16;
+          return regeneratorRuntime.awrap(newUser.save());
+
+        case 16:
+          _token = _jsonwebtoken["default"].sign({
+            id: newUser._id
+          }, process.env.JSONWEBTOKEN);
+          _newUser$_doc = newUser._doc, _pass = _newUser$_doc.password, _rest = _objectWithoutProperties(_newUser$_doc, ["password"]);
+          res.cookie('access_token', _token, {
+            httpOnly: true
+          }).status(200).json(_rest);
+
+        case 19:
+          _context3.next = 24;
+          break;
+
+        case 21:
+          _context3.prev = 21;
+          _context3.t0 = _context3["catch"](0);
+          next(_context3.t0);
+
+        case 24:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, null, null, [[0, 21]]);
+};
+
+exports.google = google;
