@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createListing = void 0;
 
-var _listing = _interopRequireDefault(require("../models/listing.model"));
+var _listingModel = _interopRequireDefault(require("../models/listing.model.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -17,7 +17,7 @@ var createListing = function createListing(req, res, next) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return regeneratorRuntime.awrap(_listing["default"].create(req.body));
+          return regeneratorRuntime.awrap(_listingModel["default"].create(req.body));
 
         case 3:
           listing = _context.sent;
