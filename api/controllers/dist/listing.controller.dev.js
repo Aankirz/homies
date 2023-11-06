@@ -21,22 +21,23 @@ var createListing = function createListing(req, res, next) {
 
         case 3:
           listing = _context.sent;
+          console.log(listing);
           res.status(201).json(listing);
-          _context.next = 11;
+          _context.next = 12;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0, "CREATE LISTING");
           next(_context.t0);
 
-        case 11:
+        case 12:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 8]]);
 };
 
 exports.createListing = createListing;

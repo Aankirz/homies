@@ -3,13 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteUser = exports.updateUser = exports.test = void 0;
+exports.getUserListings = exports.deleteUser = exports.updateUser = exports.test = void 0;
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
 var _userModel = _interopRequireDefault(require("../models/user.model.js"));
 
 var _error = require("../utils/error.js");
+
+var _listingModel = _interopRequireDefault(require("../models/listing.model.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -115,3 +117,54 @@ var deleteUser = function deleteUser(req, res, next) {
 };
 
 exports.deleteUser = deleteUser;
+
+var getUserListings = function getUserListings(req, res, next) {
+  var listings;
+  return regeneratorRuntime.async(function getUserListings$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          console.log("GET USER LISTINGS");
+          console.log(req.user.id);
+          console.log(req.params.id);
+
+          if (!(req.user.id === req.params.id)) {
+            _context3.next = 18;
+            break;
+          }
+
+          _context3.prev = 4;
+          console.log("HELLO GET USER LISTING");
+          _context3.next = 8;
+          return regeneratorRuntime.awrap(_listingModel["default"].find({
+            userRef: req.params.id
+          }));
+
+        case 8:
+          listings = _context3.sent;
+          console.log(listings);
+          res.status(200).json(listings);
+          _context3.next = 16;
+          break;
+
+        case 13:
+          _context3.prev = 13;
+          _context3.t0 = _context3["catch"](4);
+          next(_context3.t0, "Error in getUserListing");
+
+        case 16:
+          _context3.next = 19;
+          break;
+
+        case 18:
+          return _context3.abrupt("return", next((0, _error.errorHandler)(401, 'You can only view your own listings!')));
+
+        case 19:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, null, null, [[4, 13]]);
+};
+
+exports.getUserListings = getUserListings;

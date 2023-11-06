@@ -25,11 +25,11 @@ _mongoose["default"].connect(process.env.MONGO).then(function () {
 });
 
 var app = (0, _express["default"])();
+app.use(_express["default"].json());
+app.use((0, _cookieParser["default"])());
 app.listen(3000, function () {
   console.log("Server on port 3000");
 });
-app.use(_express["default"].json());
-app.use((0, _cookieParser["default"])());
 app.use('/api/user', _userRoute["default"]);
 app.use('/api/auth', _authRoute["default"]);
 app.use('/api/listing', _listingRoutes["default"]);
