@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUserListings = exports.deleteUser = exports.updateUser = exports.test = void 0;
+exports.getUser = exports.getUserListings = exports.deleteUser = exports.updateUser = exports.test = void 0;
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
@@ -168,3 +168,45 @@ var getUserListings = function getUserListings(req, res, next) {
 };
 
 exports.getUserListings = getUserListings;
+
+var getUser = function getUser(req, res, next) {
+  var user, _user$_doc, pass, rest;
+
+  return regeneratorRuntime.async(function getUser$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(_userModel["default"].findById(req.params.id));
+
+        case 3:
+          user = _context4.sent;
+
+          if (user) {
+            _context4.next = 6;
+            break;
+          }
+
+          return _context4.abrupt("return", next((0, _error.errorHandler)(404, 'User not found')));
+
+        case 6:
+          _user$_doc = user._doc, pass = _user$_doc.password, rest = _objectWithoutProperties(_user$_doc, ["password"]);
+          res.status(200).json(rest);
+          _context4.next = 13;
+          break;
+
+        case 10:
+          _context4.prev = 10;
+          _context4.t0 = _context4["catch"](0);
+          next(_context4.t0);
+
+        case 13:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[0, 10]]);
+};
+
+exports.getUser = getUser;
